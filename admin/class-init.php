@@ -81,6 +81,11 @@ class Init {
 		<div class="srea-settings-wrapper">
 			<?php $this->render_setting_row( 'post' ); ?>
 			<?php $this->render_setting_row( 'page' ); ?>
+			<?php
+			if ( class_exists( 'WooCommerce' ) ) {
+				$this->render_setting_row( 'product' );
+			}
+			?>
 		</div>
 		<?php
 	}
