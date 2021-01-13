@@ -1,0 +1,36 @@
+.srea-template {
+	display: flex;
+
+	.srea-reaction-item {
+		display: flex;
+		margin-right: 10px;
+		align-items: center;
+		height: 28px;
+	}
+
+	.srea-button {
+		cursor: pointer;
+	}
+
+	.srea-template-count {
+		width: 23px;
+		text-align: center;
+		font-size: medium;
+	}
+
+	.srea-button {
+		outline: none;
+		border: none;
+		background: none;
+
+		&:focus,
+		&:active,
+		&:hover {
+			outline: none;
+			border: none;
+			background: none;
+		}
+	}
+}
+
+

@@ -1,0 +1,29 @@
+{
+    "name": "hector/super-reactions",
+    "type": "wordpress-plugin",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Hector",
+            "email": "h.farahani@outlook.com"
+        }
+	],
+	"autoload": {
+        "files": [
+            "constants.php",
+            "includes/functions/functions.php",
+            "includes/functions/helpers.php",
+            "includes/functions/templates.php",
+            "includes/hooks.php",
+            "includes/ajax.php"
+        ],
+        "classmap": [
+            "admin",
+            "includes",
+            "front"
+        ]
+    },
+    "require": {
+        "ext-json": "*"
+    }
+}

@@ -1,0 +1,12 @@
+.srea-settings-wrapper {
+	display: flex;
+	flex-direction: column;
+
+	.srea-template-selector {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 180px;
+		margin-bottom: 20px;
+	}
+}
