@@ -79,13 +79,20 @@ class Init {
 	public function template_selector() {
 		?>
 		<div class="srea-settings-wrapper">
-			<?php $this->render_setting_row( 'post' ); ?>
-			<?php $this->render_setting_row( 'page' ); ?>
-			<?php
-			if ( class_exists( 'WooCommerce' ) ) {
-				$this->render_setting_row( 'product' );
-			}
-			?>
+		<?php
+		$args = array(
+			'public' => true,
+		);
+
+		$post_types = get_post_types( $args );
+
+		// remove attachment from the list
+		unset( $post_types['attachment'] );
+
+		foreach ( $post_types as $post_type ) {
+			$this->render_setting_row( $post_type );
+		}
+		?>
 		</div>
 		<?php
 	}
