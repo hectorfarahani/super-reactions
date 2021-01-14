@@ -46,7 +46,7 @@ function srea_handle_post_reactions() {
 			$result = $db->update( $params );
 		}
 	} else {
-		$params['time']         = current_time( 'mysql', false );
+		$params['time']         = current_time( 'mysql' );
 		$params['content_type'] = 'post';
 		$params['value']        = 1;
 
