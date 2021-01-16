@@ -1,12 +1,96 @@
-.srea-settings-wrapper {
-	display: flex;
-	flex-direction: column;
+#wpcontent {
+	padding-left: 0;
+	padding-right: 0;
+}
 
-	.srea-template-selector {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		width: 180px;
-		margin-bottom: 20px;
+.srea-admin-wrapper {
+	display: block;
+	margin: 0 auto;
+	max-width: 900px;
+	height: 100%;
+	background-color: #ffffff;
+
+	select, input {
+		border-radius: 0;;
 	}
+}
+
+.srea-admin-header {
+	display: flex;
+	flex-basis: 50%;
+	background-color: #ffffff;
+	box-shadow: 1px 1px 5px 2px #cccccc;
+	padding: 10px;
+	align-items: center;
+
+	.srea-admin-title {
+		text-align: center;
+		flex: 1 0 auto;
+		justify-self: center;
+	}
+}
+
+.srea-admin-main {
+	padding: 20px;
+	.srea-settings-wrapper {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		.srea-template-selector {
+			display: flex;
+			align-items: center;
+			flex-grow: 1;
+			flex-basis: 33%;
+			label {
+				font-weight: bold;
+				padding-right: 5px;
+			}
+		}
+	}
+}
+
+.srea-admin-footer{
+	display: flex;
+	justify-content: flex-end;
+	padding: 20px
+}
+
+.srea-button {
+	display: block;
+	padding: 10px;
+	border: none;
+	&.srea-button-primary {
+		background-color: rgb(74, 145, 226);
+		color: #ffffff;
+		font-weight: 500;
+	}
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.srea-loader {
+	border: 3px solid rgba(200, 200, 200, 0.7);
+	border-top: 3px solid rgba(66, 66, 66, 0.5);
+	border-radius: 50%;
+	width: 16px;
+	height: 16px;
+	margin: 3px;
+	animation: spin 1s linear infinite;
+}
+
+.srea-badge-success {
+    background-color: #3c932c;
+    color: #ffffff;
+    padding: 6px;
+    text-align: center;
+    line-height: 10px;
+    font-size: 13px;
+    margin: 0 5px;
 }

@@ -29,7 +29,7 @@ function srea_handle_post_reactions() {
 		);
 	}
 
-	$user_reaction = Functions\srea_get_user_reaction( $post_id, $slug );
+	$user_reaction = srea_get_user_reaction( $post_id, $slug );
 
 	$params['slug']       = $slug;
 	$params['reaction']   = $reaction;

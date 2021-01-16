@@ -12,4 +12,5 @@ define( 'SREA_ADMIN_PATH', SREA_PATH . 'admin/' );
 define( 'SREA_ADMIN_URL', SREA_URL . 'admin/' );
 
 define( 'SREA_FRONT_ASSETS', SREA_URL . 'front/assets/dist/' );
+define( 'SREA_IMG_ASSETS', SREA_URL . 'front/assets/img/' );
 define( 'SREA_ADMIN_ASSETS', SREA_ADMIN_URL . 'assets/dist/' );

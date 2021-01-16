@@ -51,7 +51,7 @@ class Assets {
 	}
 
 	public function register_admin_scripts() {
-		wp_register_script( 'srea-admin', SREA_ADMIN_ASSETS . 'js/srea-admin' . $this->suffix . '.js', SREA_VERSION, false );
+		wp_register_script( 'srea-admin', SREA_ADMIN_ASSETS . 'js/srea-admin' . $this->suffix . '.js', SREA_VERSION, true );
 	}
 
 	public function register_admin_styles() {
