@@ -23,6 +23,19 @@ if ( ! defined( 'WPINC' ) ) {
 
 require_once 'vendor/autoload.php';
 
+register_activation_hook( __FILE__, '\SREA\srea_activation_hook_callback' );
+
+function srea_activation_hook_callback() {
+	\SREA\Includes\Init::activate();
+}
+
+register_deactivation_hook( __FILE__, '\SREA\srea_deactivation_hook_callback' );
+
+function srea_deactivation_hook_callback() {
+	\SREA\Includes\Init::deactivate();
+}
+
+
 Admin::instance();
 Assets::instance();
 Front::instance();
