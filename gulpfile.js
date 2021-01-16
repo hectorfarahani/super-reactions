@@ -1,4 +1,4 @@
-var version = '1.0.4';
+var version = '1.1.0';
 var versioningFiles = [
   'super-reactions.php',
   'constants.php',

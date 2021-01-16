@@ -3,11 +3,11 @@
 /**
  * Plugin Name: Super Reactions
  * Description: Get meaningful reactions from users.
- * Version: 1.0.4
- * Author: Super Reactions Team
+ * Version:     1.1.0
+ * Author:      Super Reactions Team
  * Text Domain: super-reactions
  * Domain Path: /languages
- * License: GPLv3
+ * License:     GPLv3
  */
 
 namespace SREA;
