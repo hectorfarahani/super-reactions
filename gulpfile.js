@@ -1,4 +1,4 @@
-var version = '1.0.4';
+var version = '1.1.0';
 var versioningFiles = [
   'super-reactions.php',
   'constants.php',
@@ -31,7 +31,9 @@ var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
 var replace = require('gulp-replace');
 var touch = require('gulp-touch-fd');
+var browserSync = require('browser-sync').create();
 
+// Generate pot
 gulp.task(
   'generatePot',
   function () {
@@ -58,6 +60,7 @@ gulp.task(
   }
 );
 
+// Clean
 gulp.task(
   'clean',
   function () {
@@ -79,6 +82,7 @@ gulp.task(
   }
 )
 
+// Sass compile
 gulp.task(
   'css',
   function (cb) {
@@ -93,7 +97,7 @@ gulp.task(
       .pipe(gulp.dest('admin/assets/dist/css'))
       .pipe(cleanCSS())
       .pipe(rename({ basename: 'srea-admin', suffix: '.min', dirname: '' }))
-      .pipe(gulp.dest('admin/assets/dist/css'));
+      .pipe(gulp.dest('admin/assets/dist/css'))
 
     gulp.src(
       [
@@ -106,11 +110,12 @@ gulp.task(
       .pipe(gulp.dest('front/assets/dist/css'))
       .pipe(cleanCSS())
       .pipe(rename({ basename: 'srea-front', suffix: '.min', dirname: '' }))
-      .pipe(gulp.dest('front/assets/dist/css'));
+      .pipe(gulp.dest('front/assets/dist/css'))
     cb();
   }
 );
 
+// JS
 gulp.task(
   'js',
   function (cb) {
@@ -119,40 +124,34 @@ gulp.task(
         'admin/assets/src/js/**/*.js',
       ]
     )
-      .pipe(
-        babel(
-          {
-            presets: ['es2015']
-          }
-        )
-      )
+      .pipe(babel({
+        presets: ['@babel/env']
+      }))
       .pipe(rename({ basename: 'srea-admin', dirname: '' }))
       .pipe(gulp.dest('admin/assets/dist/js'))
       .pipe(uglify())
       .pipe(rename({ basename: 'srea-admin', suffix: '.min', dirname: '' }))
-      .pipe(gulp.dest('admin/assets/dist/js'))
+      .pipe(gulp.dest('admin/assets/dist/js'));
 
     gulp.src(
       [
         'front/assets/src/js/**/*.js',
       ]
     )
-      .pipe(
-        babel(
-          {
-            presets: ['es2015']
-          }
-        )
-      )
+      .pipe(babel({
+        presets: ['@babel/env']
+      }))
       .pipe(rename({ basename: 'srea-front', dirname: '' }))
       .pipe(gulp.dest('front/assets/dist/js'))
       .pipe(uglify())
       .pipe(rename({ basename: 'srea-front', suffix: '.min', dirname: '' }))
-      .pipe(gulp.dest('front/assets/dist/js'))
+      .pipe(gulp.dest('front/assets/dist/js'));
+
     cb();
   }
 );
 
+// Set version
 gulp.task(
   'version',
   function (cb) {
@@ -182,7 +181,37 @@ gulp.task(
   }
 );
 
-gulp.task('bundle', function () {
+// Reload task
+gulp.task('stream', function (cb) {
+  browserSync.reload({ stream: true })
+  cb();
+});
+
+gulp.task('reload', function (cb) {
+  browserSync.reload()
+  cb();
+});
+
+// Watch Task
+gulp.task('watch', function (cb) {
+  // Init browserSync
+  browserSync.init({
+    injectChanges: true,
+    proxy: '74.wordpress.test/'
+  })
+  gulp.watch(['./front/**/*.scss', './admin/**/*.scss'], gulp.parallel(['css', 'stream']))
+  gulp.watch(['./front/**/*.js', './admin/**/*.js'], gulp.parallel(['js', 'stream']))
+  gulp.watch(
+    [
+      './admin/**/*.php',
+      './front/**/*.php',
+      './includes/**/*.php'
+    ], gulp.parallel(['reload']))
+  cb();
+});
+
+// Copy task
+gulp.task('copy', function () {
   return gulp.src(srcs)
     .pipe(gulp.dest('/home/hector/svn-releases/super-reactions/trunk'))
 })

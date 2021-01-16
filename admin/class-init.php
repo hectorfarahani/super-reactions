@@ -23,12 +23,12 @@ class Init {
 	public function init() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 		add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
-		add_action( 'admin_init', array( $this, 'register_settings' ) );
 	}
 
 	public function assets( $hook ) {
 		if ( 'toplevel_page_super-reactions' === $hook ) {
 			wp_enqueue_style( 'srea-admin' );
+			wp_enqueue_script( 'srea-admin' );
 		}
 	}
 
@@ -46,34 +46,24 @@ class Init {
 
 	public function renbder_settings_page() {
 		?>
-		<form method="POST" action="options.php">
-			<?php
-			settings_fields( 'super-reactions' );
-			do_settings_sections( 'super-reactions' );
-			submit_button();
-			?>
-		</form>
+		<div class="srea-admin-wrapper">
+			<div class="srea-admin-header">
+				<div class="srea-logo">
+					<?php srea_logo( 100, 100 ); ?>
+				</div>
+				<div class="srea-admin-title">
+					<h1><?php esc_html_e( 'Super Reactions', 'super-reactions' ); ?></h1>
+				</div>
+			</div>
+			<div class="srea-admin-main">
+				<section class="srea-settings">
+					<h2><?php esc_html_e( 'Templates:', 'super-reactions' ); ?></h2>
+				<?php $this->template_selector(); ?>
+				<?php wp_nonce_field('srea_save_settings'); ?>
+				</section>
+			</div>
+		</div>
 		<?php
-	}
-
-	public function register_settings() {
-
-		add_settings_section(
-			'srea_settings_section',
-			__( 'Super Reaction Settings', 'wp-reaction' ),
-			array(),
-			'super-reactions'
-		);
-
-		add_settings_field(
-			'srea_config',
-			__( 'Reaction Templates:', 'super-reactions' ),
-			array( $this, 'template_selector' ),
-			'super-reactions',
-			'srea_settings_section'
-		);
-
-		 register_setting( 'super-reactions', 'srea_config' );
 	}
 
 	public function template_selector() {
@@ -92,20 +82,21 @@ class Init {
 		foreach ( $post_types as $post_type ) {
 			$this->render_setting_row( $post_type );
 		}
+
 		?>
 		</div>
 		<?php
 	}
 
 	private function render_setting_row( $post_type ) {
-		$reactions = Functions\srea_reactions();
+		$reactions = srea_reactions();
 		?>
 			<div class="srea-template-selector">
 				<label for="srea-template-selector-<?php echo esc_attr( $post_type ); ?>"><?php echo ucfirst( $post_type ) . ':'; ?></label>
-				<select name="srea_config[active_template][<?php echo esc_attr( $post_type ); ?>]" id="srea-template-selector-<?php echo esc_attr( $post_type ); ?>">
+				<select name="<?php echo esc_attr( $post_type ); ?>" id="srea-template-selector-<?php echo esc_attr( $post_type ); ?>">
 					<option value="0"><?php esc_html_e( 'Disable', 'super-reactions' ); ?></option>
 					<?php foreach ( $reactions as $slug => $reaction ) : ?>
-						<?php $selected = Functions\srea_get_active_template_slug( $post_type ) === $slug ? 'selected' : ''; ?>
+						<?php $selected = srea_get_active_template_slug( $post_type ) === $slug ? 'selected' : ''; ?>
 						<option value="<?php echo esc_attr( $slug ); ?>" <?php echo esc_attr( $selected ); ?> ><?php echo esc_html( $reaction['name'] ); ?></option>
 					<?php endforeach; ?>
 				</select>

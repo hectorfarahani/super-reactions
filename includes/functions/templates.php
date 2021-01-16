@@ -1,20 +1,18 @@
 <?php
 
-namespace SREA\Includes\Functions;
-
 function srea_get_template( string $reaction_slug ) {
 	if ( ! $reaction_slug ) {
 		return false;
 	}
 
 	$reaction = srea_get_reaction( $reaction_slug );
-	$template = call_user_func_array( 'SREA\Includes\Functions\\' . $reaction['content_callback'], array( get_the_ID(), get_post_type(), $reaction, $reaction_slug ) );
+	$template = call_user_func_array( $reaction['content_callback'], array( get_the_ID(), get_post_type(), $reaction, $reaction_slug ) );
 
 	return apply_filters( 'srea_filter_template_markup', $template, $reaction_slug );
 }
 
 function srea_get_active_template_slug( string $section ) {
-	$active_template = srea_get_config( 'active_template', array() );
+	$active_template = srea_get_option( 'active_template', array() );
 	return apply_filters( 'srea_filter_active_template_slug', $active_template[ $section ] ?? '' );
 }
 

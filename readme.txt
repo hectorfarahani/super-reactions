@@ -5,7 +5,7 @@ Tags: like, reaction
 Requires at least: 5.1
 Tested up to: 5.6
 Requires PHP: 7.0
-Stable tag: 1.0.4
+Stable tag: 1.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,5 +26,11 @@ More reaction templates
 
 == Changelog ==
 
-= 1.0.0 =
+
+= 1.1.0 =
+* New admin interface
+* Autosave configs
+* Code improvements
+
+= 1.0.5 =
 * Initial Version.
