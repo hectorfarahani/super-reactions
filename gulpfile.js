@@ -5,6 +5,21 @@ var versioningFiles = [
 	'readme.txt'
 ];
 
+var srcs = [
+	'./**',
+	'!./node_modules/**',
+	'!./.*',
+	'!*.josn',
+	'!*.xml',
+	'!*.md',
+	'!*.lock',
+	'!gulpfile.js',
+	'!*.yml',
+	'!svn-assets/**',
+	'!admin/assets/src/**',
+	'!front/assets/src/**'
+];
+
 var gulp     = require( 'gulp' );
 var wpPot    = require( 'gulp-wp-pot' );
 var clean    = require( 'gulp-clean' );
@@ -166,5 +181,10 @@ gulp.task(
 		cb();
 	}
 );
+
+gulp.task('bundle', function(){
+	return gulp.src(srcs)
+	.pipe(gulp.dest('/home/hector/svn-releases/super-reactions/trunk'))
+})
 
 gulp.task( 'default', gulp.series( 'clean', 'version', 'generatePot', 'css', 'js' ) );
