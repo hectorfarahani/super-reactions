@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Super Reactions
  * Description: Get meaningful reactions from users.
- * Version:     1.1.0
+ * Version:     1.1.1
  * Author:      Super Reactions Team
  * Text Domain: super-reactions
  * Domain Path: /languages
