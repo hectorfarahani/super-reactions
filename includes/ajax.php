@@ -1,12 +1,9 @@
 <?php
 
-namespace SREA\Includes;
-
-use SREA\Includes\Functions;
 use SREA\Includes\DB;
 
-add_action( 'wp_ajax_srea_handle_post_reactions', 'SREA\Includes\srea_handle_post_reactions' );
-add_action( 'wp_ajax_nopriv_srea_handle_post_reactions', 'SREA\Includes\srea_handle_post_reactions' );
+add_action( 'wp_ajax_srea_handle_post_reactions', 'srea_handle_post_reactions' );
+add_action( 'wp_ajax_nopriv_srea_handle_post_reactions', 'srea_handle_post_reactions' );
 
 function srea_handle_post_reactions() {
 

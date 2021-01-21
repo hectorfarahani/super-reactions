@@ -1,10 +1,6 @@
 <?php
 
-namespace SREA\Includes;
-
-use SREA\Includes\Functions;
-
-add_action( 'the_content', 'SREA\Includes\srea_add_reaction_buttons' );
+add_action( 'the_content', 'srea_add_reaction_buttons' );
 
 function srea_add_reaction_buttons( $content ) {
 

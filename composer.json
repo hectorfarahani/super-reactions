@@ -12,9 +12,8 @@
         "files": [
 			"constants.php",
 			"admin/ajax.php",
-            "includes/functions/functions.php",
-            "includes/functions/helpers.php",
-            "includes/functions/templates.php",
+            "includes/functions.php",
+            "includes/templates.php",
             "includes/hooks.php",
             "includes/ajax.php",
 			"includes/options.php"
