@@ -7,8 +7,10 @@ use SREA\Includes\Functions;
 class Init {
 
 	private static $instance = null;
+	private $tabs            = array();
 
 	private function __construct() {
+		$this->define_tabs();
 		$this->init();
 	}
 
@@ -44,9 +46,40 @@ class Init {
 		);
 	}
 
+	private function tab( $key, $label ) {
+		?>
+		<div class="srea-tab" data-tab="<?php echo esc_attr( $key ); ?>">
+			<span><?php echo esc_html( $label ); ?></span>
+		</div>
+		<?php
+
+	}
+
+	private function view( $key, $label ) {
+		?>
+		<div id="<?php echo esc_attr( $key ); ?>" class="srea-view">
+			<?php echo 'view of ' . $label; ?>
+		</div>
+		<?php
+	}
+
+	private function tabs() {
+		foreach ( $this->tabs as $key => $label ) {
+			$this->tab( $key, $label );
+		}
+	}
+
+	private function views() {
+		foreach ( $this->tabs as $key => $label ) {
+			$this->view( $key, $label );
+		}
+	}
+
 	public function renbder_settings_page() {
 		?>
+
 		<div class="srea-admin-wrapper">
+
 			<div class="srea-admin-header">
 				<div class="srea-logo">
 					<?php srea_logo( 100, 100 ); ?>
@@ -55,13 +88,19 @@ class Init {
 					<h1><?php esc_html_e( 'Super Reactions', 'super-reactions' ); ?></h1>
 				</div>
 			</div>
+
 			<div class="srea-admin-main">
-				<section class="srea-settings">
-					<h2><?php esc_html_e( 'Templates:', 'super-reactions' ); ?></h2>
-				<?php $this->template_selector(); ?>
-				<?php wp_nonce_field('srea_save_settings'); ?>
-				</section>
+
+				<div class="srea-tabs">
+					<?php $this->tabs(); ?>
+				</div>
+				<div class="srea-views">
+					<?php $this->views(); ?>
+				</div>
+
+				<?php wp_nonce_field( 'srea_save_settings' ); ?>
 			</div>
+
 		</div>
 		<?php
 	}
@@ -103,6 +142,18 @@ class Init {
 			</div>
 
 		<?php
+	}
+
+	private function define_tabs() {
+		$defaults = array(
+			'posts' => __( 'Post & Pages' ),
+			'wc'    => __( 'WooCommerce' ),
+			'cpt'   => __( 'Custom Post Types' ),
+		);
+
+		$tabs = apply_filters( 'srea_admin_settings_view_tabs', $defaults );
+
+		$this->tabs = $tabs;
 	}
 
 }
