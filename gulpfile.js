@@ -95,9 +95,11 @@ gulp.task(
       .pipe(save('before-dest'))
       .pipe(rename({ basename: 'srea-admin', dirname: '' }))
       .pipe(gulp.dest('admin/assets/dist/css'))
+      .pipe(browserSync.stream({match: '**/*.css'}))
       .pipe(cleanCSS())
       .pipe(rename({ basename: 'srea-admin', suffix: '.min', dirname: '' }))
       .pipe(gulp.dest('admin/assets/dist/css'))
+      .pipe(browserSync.stream({match: '**/*.css'}))
 
     gulp.src(
       [
@@ -109,8 +111,10 @@ gulp.task(
       .pipe(rename({ basename: 'srea-front', dirname: '' }))
       .pipe(gulp.dest('front/assets/dist/css'))
       .pipe(cleanCSS())
+      .pipe(browserSync.stream({match: '**/*.css'}))
       .pipe(rename({ basename: 'srea-front', suffix: '.min', dirname: '' }))
       .pipe(gulp.dest('front/assets/dist/css'))
+      .pipe(browserSync.stream({match: '**/*.css'}))
     cb();
   }
 );
@@ -199,8 +203,8 @@ gulp.task('watch', function (cb) {
     injectChanges: true,
     proxy: '74.wordpress.test/'
   })
-  gulp.watch(['./front/**/*.scss', './admin/**/*.scss'], gulp.parallel(['css', 'stream']))
-  gulp.watch(['./front/**/*.js', './admin/**/*.js'], gulp.parallel(['js', 'stream']))
+  gulp.watch(['./front/**/*.scss', './admin/**/*.scss'], gulp.series(['css']))
+  gulp.watch(['./front/**/*.js', './admin/**/*.js'], gulp.series(['js']))
   gulp.watch(
     [
       './admin/**/*.php',
