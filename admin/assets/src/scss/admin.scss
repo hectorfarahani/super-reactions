@@ -10,8 +10,9 @@
 	height: 100%;
 	background-color: #ffffff;
 
-	select, input {
-		border-radius: 0;;
+	select,
+	input {
+		border-radius: 0;
 	}
 }
 
@@ -39,10 +40,15 @@
 		border: 1px solid #ccc;
 		border-bottom: none;
 		border-right: none;
+		cursor: pointer;
 
 		.srea-tab {
 			padding: 20px;
 			border-bottom: 1px solid #ccc;
+			&.active {
+				background-color: #d5edff;
+				font-weight: bold;
+			}
 		}
 	}
 
@@ -51,13 +57,12 @@
 		padding-left: 40px;
 	}
 
-	.srea-view {
+	.srea-view:not(.active) {
 		display: none;
 	}
-
 }
 
-.srea-admin-footer{
+.srea-admin-footer {
 	display: flex;
 	justify-content: flex-end;
 	padding: 20px;
@@ -94,11 +99,11 @@
 }
 
 .srea-badge-success {
-    background-color: #3c932c;
-    color: #ffffff;
-    padding: 6px;
-    text-align: center;
-    line-height: 10px;
-    font-size: 13px;
-    margin: 0 5px;
+	background-color: #3c932c;
+	color: #ffffff;
+	padding: 6px;
+	text-align: center;
+	line-height: 10px;
+	font-size: 13px;
+	margin: 0 5px;
 }

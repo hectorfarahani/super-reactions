@@ -3,6 +3,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
   const nonce = document.getElementById('_wpnonce');
   const $selects = document.querySelectorAll('select');
 
+  const $tabs = document.querySelectorAll('.srea-tab');
+
+  $tabs.forEach(element => {
+    element.addEventListener('click', tabActivate);
+  })
+
+  function tabActivate(e) {
+    document.querySelector('.srea-tab.active').classList.remove('active');
+    e.currentTarget.classList.add('active');
+    showView(e.currentTarget.dataset.view);
+  }
+
+  function showView(id) {
+    document.querySelector('.srea-view.active').classList.remove('active');
+    document.querySelector(`#${id}`).classList.add('active');
+  }
 
 
   $selects.forEach(element => {

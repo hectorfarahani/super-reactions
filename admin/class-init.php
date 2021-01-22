@@ -6,8 +6,10 @@ use SREA\Includes\Functions;
 
 class Init {
 
-	private static $instance = null;
-	private $tabs            = array();
+	private static $instance   = null;
+	private $tabs              = array();
+	public static $tabs_count  = 0;
+	public static $views_count = 0;
 
 	private function __construct() {
 		$this->define_tabs();
@@ -47,17 +49,20 @@ class Init {
 	}
 
 	private function tab( $key, $label ) {
+		$classes  = 'srea-tab ';
+		$classes .= ! $this::$tabs_count ? 'active' : '';
 		?>
-		<div class="srea-tab" data-tab="<?php echo esc_attr( $key ); ?>">
+		<div class="<?php echo esc_attr( $classes ); ?>" data-view="<?php echo esc_attr( $key ); ?>">
 			<span><?php echo esc_html( $label ); ?></span>
 		</div>
 		<?php
-
 	}
 
 	private function view( $key, $label ) {
+		$classes  = 'srea-view ';
+		$classes .= ! $this::$views_count ? 'active' : '';
 		?>
-		<div id="<?php echo esc_attr( $key ); ?>" class="srea-view">
+		<div id="<?php echo esc_attr( $key ); ?>" class="<?php echo esc_attr( $classes ); ?>">
 			<?php echo 'view of ' . $label; ?>
 		</div>
 		<?php
@@ -66,12 +71,14 @@ class Init {
 	private function tabs() {
 		foreach ( $this->tabs as $key => $label ) {
 			$this->tab( $key, $label );
+			$this::$tabs_count++;
 		}
 	}
 
 	private function views() {
 		foreach ( $this->tabs as $key => $label ) {
 			$this->view( $key, $label );
+			$this::$views_count++;
 		}
 	}
 
