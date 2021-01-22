@@ -9,7 +9,7 @@ var srcs = [
   './**',
   '!./node_modules/**',
   '!./.*',
-  '!*.josn',
+  '!*.json',
   '!*.xml',
   '!*.md',
   '!*.lock',
