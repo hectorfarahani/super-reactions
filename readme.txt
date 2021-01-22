@@ -15,16 +15,17 @@ Show like button, heart, dislike, and more to get user reactions about your post
 
 Show like button, heart, dislike, and more to get user reactions about your post and page content.
 
-Next Update will includes:
-WooCommerce support,
-Code improvements,
-More reaction templates
 
 == Installation ==
 
 1. After installing this plugin, Visit the `Reactions` page in admin dashboard and set your desired reaction type for posts and pages.
 
 == Changelog ==
+
+= 1.2.0 =
+* New admin panel
+* WooCommerce support
+* Custom post type support
 
 = 1.1.0 =
 * Bug fix
