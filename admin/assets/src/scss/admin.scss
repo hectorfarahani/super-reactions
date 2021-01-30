@@ -45,7 +45,7 @@
 			border-bottom: 1px solid #ccc;
 			border-left: 1px solid #ccc;
 			&.active {
-				background-color: #d5edff;
+				background-color: #e5eeff;
 				font-weight: bold;
 			}
 		}
@@ -96,31 +96,66 @@
 	}
 }
 
-@keyframes spin {
-	0% {
-		transform: rotate(0deg);
+#srea-settings-modal {
+	position: fixed;
+	width: 100%;
+	max-width: 700px;
+	margin: 0 auto;
+	background-color: #efefef;
+	padding: 10px 30px 30px;
+	border: 1px solid #ccc;
+	z-index: 9990;
+	display: none;
+
+	&.visible {
+		display: block;
 	}
-	100% {
-		transform: rotate(360deg);
+
+
+	.srea-modal-inner {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		max-height: 400px;
+		overflow-y: scroll;
+
+		.srea-setting-preview {
+			display: flex;
+			flex-grow: 1;
+			flex-shrink: 0;
+			height: 40px;
+			background-color: #f8f8f8;
+			border: 1px solid #cccccc;
+			justify-content: center;
+			align-items: center;
+			margin: 10px;
+			cursor: pointer;
+
+			&:hover {
+				border-color: blue;
+			}
+
+			&.selected {
+				background-color: #e5eeff;
+				border-color: blue;
+
+			}
+		}
 	}
 }
 
-.srea-loader {
-	border: 3px solid rgba(200, 200, 200, 0.7);
-	border-top: 3px solid rgba(66, 66, 66, 0.5);
-	border-radius: 50%;
-	width: 16px;
-	height: 16px;
-	margin: 3px;
-	animation: spin 1s linear infinite;
+.srea-modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	h2 {
+		margin-left: 10px;
+	}
 }
 
-.srea-badge-success {
-	background-color: #3c932c;
-	color: #ffffff;
-	padding: 6px;
-	text-align: center;
-	line-height: 10px;
-	font-size: 13px;
-	margin: 0 5px;
-}
+
+
+@import "../../../../front/assets/src/scss/animations.scss";
+@import "../../../../front/assets/src/scss/common.scss";
+@import "../../../../front/assets/src/scss/templates.scss";

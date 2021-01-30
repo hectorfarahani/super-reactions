@@ -7,3 +7,44 @@
 	margin: 5px;
 	animation: spin 1s linear infinite;
 }
+
+.srea-badge-success {
+	background-color: #3c932c;
+	color: #ffffff;
+	padding: 6px;
+	text-align: center;
+	line-height: 10px;
+	font-size: 13px;
+	margin: 0 5px;
+}
+
+
+.srea-modal-close-btn {
+    cursor: pointer;
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 30px;
+	border: 2px solid #747474;
+	left: 30px;
+	bottom: 20px;
+	&::before {
+		content: '';
+		position: absolute;
+		top: 13px;
+		height: 2px;
+		width: 30px;
+		background-color: #747474;
+		transform: rotate(45deg);
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 13px;
+		height: 2px;
+		width: 30px;
+		background-color: #747474;
+		transform: rotate(-45deg);
+	}
+}

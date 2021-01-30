@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
+
   const nonce = document.getElementById('_wpnonce');
   const $selects = document.querySelectorAll('select');
 
@@ -19,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.querySelector('.srea-view.active').classList.remove('active');
     document.querySelector(`#${id}`).classList.add('active');
   }
-
 
   $selects.forEach(element => {
     element.addEventListener('change', sreaSaveSettings);
@@ -44,8 +44,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
       .then(res => {
         e.target.parentNode.removeChild(spinner);
         const badge = showResults(res.success, res.data.results);
-        e.target.insertAdjacentElement('afterend', badge );
-        setTimeout(function(){
+        e.target.insertAdjacentElement('afterend', badge);
+        setTimeout(function () {
           e.target.parentNode.removeChild(badge);
         }, 500);
       })
@@ -63,5 +63,39 @@ document.addEventListener("DOMContentLoaded", function (event) {
     badge.textContent = text;
     return badge;
   }
+
+  const sreaModal = {
+    'modal': document.querySelector('#srea-settings-modal'),
+
+    init: function () {
+      let $settingInitiators = document.querySelectorAll('.srea-settings-modal-enabled');
+      let $closer = document.querySelector('#srea-modal-close-btn');
+
+      $settingInitiators.forEach(element => {
+        element.addEventListener('click', this.open);
+      });
+
+      $closer.addEventListener('click', sreaModal.close);
+    },
+
+    open: () => {
+      sreaModal.modal.classList.add('visible');
+      sreaModal.calculatePosition();
+      window.addEventListener('resize', sreaModal.calculatePosition);
+    },
+
+    close: function () {
+      sreaModal.modal.classList.remove('visible');
+    },
+
+    calculatePosition: function () {
+      const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+      sreaModal.modal.style.left = `${(vw - sreaModal.modal.offsetWidth) / 2}px`;
+      sreaModal.modal.style.top = `${(vh - sreaModal.modal.offsetHeight) / 2}px`;
+    }
+  };
+
+  sreaModal.init();
 
 });

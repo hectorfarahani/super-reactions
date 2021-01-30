@@ -2,6 +2,8 @@
 
 namespace SREA\Admin;
 
+use SREA\Includes\SREA_Reactions;
+
 class Settings_View {
 	private $tabs              = array();
 	private $cpts              = array();
@@ -41,6 +43,7 @@ class Settings_View {
 
 		</div>
 		<?php
+		$this->modal();
 	}
 
 	private function tabs() {
@@ -117,7 +120,7 @@ class Settings_View {
 	private function render_setting_row( $post_type ) {
 		$reactions = srea_reactions();
 		?>
-			<div class="srea-template-selector">
+			<div class="srea-template-selector srea-settings-modal-enabled">
 				<label for="srea-template-selector-<?php echo esc_attr( $post_type ); ?>"><?php echo ucfirst( $post_type ) . ':'; ?></label>
 				<select name="<?php echo esc_attr( $post_type ); ?>" id="srea-template-selector-<?php echo esc_attr( $post_type ); ?>">
 					<option value="0"><?php esc_html_e( 'Disable', 'super-reactions' ); ?></option>
@@ -150,6 +153,38 @@ class Settings_View {
 
 	private function is_wc_active() {
 		return in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true );
+	}
+
+	private function modal() {
+		?>
+			<div id="srea-settings-modal">
+				<div class="srea-modal-header">
+					<h2>
+						<?php esc_html_e( 'Select reaction template for', 'super-reactions' ); ?>
+					</h2>
+					<div id="srea-modal-close-btn" class="srea-modal-close-btn"></div>
+				</div>
+				<div class="srea-modal-inner">
+					<?php $this->settings_preview(); ?>
+				</div>
+			</div>
+		<?php
+	}
+
+	private function settings_preview() {
+		$reactions = ( new SREA_Reactions() )->get_all();
+		foreach ( $reactions as $slug => $config ) {
+			$this->generate_single_preview( $slug );
+			$this->generate_single_preview( $slug );
+		}
+	}
+
+	private function generate_single_preview( $slug ) {
+		?>
+		<div class="srea-setting-preview">
+			<?php echo srea_get_template( $slug ); ?>
+		</div>
+		<?php
 	}
 
 }
