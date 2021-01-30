@@ -102,11 +102,16 @@ class Settings_View {
 
 	private function custom_post_types() {
 		$args = array(
-			'public'   => true,
-			'_builtin' => false,
+			'public'              => true,
+			'publicly_queryable'  => true,
+			'exclude_from_search' => true,
+			'show_ui'             => true,
+			'show_in_nav_menus'   => true,
+			'_builtin'            => false,
 		);
 
-		$this->cpts = array_diff( get_post_types( $args ), array( 'product' ) );
+		$cpts       = array_diff( get_post_types( $args ), array( 'product' ) );
+		$this->cpts = apply_filters( 'srea_custom_post_types', $cpts );
 	}
 
 	private function render_setting_row( $post_type ) {
