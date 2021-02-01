@@ -119,16 +119,18 @@ class Settings_View {
 
 	private function render_setting_row( $post_type ) {
 		$reactions = srea_reactions();
+		$selected  = srea_get_active_template_slug( $post_type )
 		?>
-			<div class="srea-template-selector srea-settings-modal-enabled">
-				<label for="srea-template-selector-<?php echo esc_attr( $post_type ); ?>"><?php echo ucfirst( $post_type ) . ':'; ?></label>
-				<select name="<?php echo esc_attr( $post_type ); ?>" id="srea-template-selector-<?php echo esc_attr( $post_type ); ?>">
-					<option value="0"><?php esc_html_e( 'Disable', 'super-reactions' ); ?></option>
-					<?php foreach ( $reactions as $slug => $reaction ) : ?>
-						<?php $selected = srea_get_active_template_slug( $post_type ) === $slug ? 'selected' : ''; ?>
-						<option value="<?php echo esc_attr( $slug ); ?>" <?php echo esc_attr( $selected ); ?> ><?php echo esc_html( $reaction['name'] ); ?></option>
-					<?php endforeach; ?>
-				</select>
+			<div class="srea-template-selector">
+				<span class="srea-setting-label">
+					<?php echo ucfirst( $post_type ) . ':'; ?>
+				</span>
+
+				<button class="srea-template-selector-btn" data-srea-option="<?php echo esc_attr( $post_type ); ?>">
+					<?php esc_html_e( 'Select a template', 'super-reactions' ); ?>
+				</button>
+
+				<div class="srea-selected-template-preview"></div>
 			</div>
 		<?php
 	}
@@ -159,8 +161,9 @@ class Settings_View {
 		?>
 			<div id="srea-settings-modal">
 				<div class="srea-modal-header">
-					<h2>
-						<?php esc_html_e( 'Select reaction template for', 'super-reactions' ); ?>
+					<h2 id="srea-modal-title">
+						<span><?php esc_html_e( 'Select reaction template for', 'super-reactions' ); ?></span>
+						<span id="srea-modal-title-option-name"></span>
 					</h2>
 					<div id="srea-modal-close-btn" class="srea-modal-close-btn"></div>
 				</div>
@@ -181,7 +184,7 @@ class Settings_View {
 
 	private function generate_single_preview( $slug ) {
 		?>
-		<div class="srea-setting-preview">
+		<div class="srea-setting-preview" data-slug="<?php echo esc_attr( $slug ); ?>">
 			<?php echo srea_get_template( $slug ); ?>
 		</div>
 		<?php
