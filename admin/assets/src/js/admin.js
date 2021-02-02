@@ -63,27 +63,30 @@ document.addEventListener("DOMContentLoaded", function (event) {
   }
 
   class sreaModal {
-
     constructor() {
       this.modal = document.querySelector("#srea-settings-modal");
-      this.selectingOption = '';
-      this.modalFor = '';
+      this.selectingOption = "";
+      this.modalFor = "";
 
       const $settingInitiators = document.querySelectorAll(
         "[data-srea-option]"
       );
-
       $settingInitiators.forEach((element) => {
         element.addEventListener("click", this.open.bind(this));
       });
 
+      const $removers = document.querySelectorAll(".srea-remover");
+      $removers.forEach((element) => {
+        element.addEventListener("click", this.remove.bind(this));
+      });
+
       const $previews = this.modal.querySelectorAll(".srea-setting-preview");
       $previews.forEach((element) => {
-        element.addEventListener('click', this.select.bind(this) );
+        element.addEventListener("click", this.select.bind(this));
       });
 
       const $closeBtn = document.querySelector("#srea-modal-close-btn");
-      $closeBtn.addEventListener('click', this.close.bind(this));
+      $closeBtn.addEventListener("click", this.close.bind(this));
     }
 
     open(e) {
@@ -98,18 +101,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     capitalize(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
-  }
+    }
 
     addTitle(slug) {
-      const $title = document.getElementById('srea-modal-title-option-name');
-      $title.insertAdjacentText('beforeend', this.capitalize(slug));
+      const $title = document.getElementById("srea-modal-title-option-name");
+      $title.insertAdjacentText("beforeend", this.capitalize(slug));
     }
 
     close() {
       this.modal.classList.remove("visible");
-      const $title = document.getElementById('srea-modal-title-option-name');
-      $title.innerHTML = '';
-      this.selectingOption = '';
+      const $title = document.getElementById("srea-modal-title-option-name");
+      this.empty($title);
+      this.selectingOption = null;
+      this.modalFor = null;
     }
 
     calculatePosition() {
@@ -121,22 +125,43 @@ document.addEventListener("DOMContentLoaded", function (event) {
         document.documentElement.clientHeight || 0,
         window.innerHeight || 0
       );
-      this.modal.style.left = `${
-        (vw - this.modal.offsetWidth) / 2
-      }px`;
-      this.modal.style.top = `${
-        (vh - this.modal.offsetHeight) / 2
-      }px`;
+      this.modal.style.left = `${(vw - this.modal.offsetWidth) / 2}px`;
+      this.modal.style.top = `${(vh - this.modal.offsetHeight) / 2}px`;
     }
 
     select(event) {
-      const element = event.currentTarget.cloneNode(true);
-      const $preview = this.modalFor.parentNode.querySelector('.srea-selected-template-preview');
-      $preview.innerHTML = '';
-      $preview.insertAdjacentElement('beforeend',element);
+      const $selectedPreview = event.currentTarget.cloneNode(true);
+      const $previewWrapper = this.modalFor
+        .closest(".preview-wrapper")
+        .querySelector(".srea-selected-template-preview");
+
+      this.empty($previewWrapper);
+      $previewWrapper.insertAdjacentElement("beforeend", $selectedPreview);
+      this.modalFor.innerText = "Change";
+      this.enableBtn(this.modalFor.parentNode.querySelector('.srea-remover'));
       this.close();
     }
 
+    remove(event) {
+      const $previewWrapper = event.currentTarget
+        .closest(".preview-wrapper")
+        .querySelector(".srea-selected-template-preview");
+
+      this.empty($previewWrapper);
+      this.disableBtn(event.currentTarget);
+    }
+
+    disableBtn(btn) {
+      btn.setAttribute("disabled", "disabled");
+    }
+
+    enableBtn(btn) {
+      btn.removeAttribute('disabled');
+    }
+
+    empty(ele) {
+      ele.innerHTML = null;
+    }
   }
 
   new sreaModal();

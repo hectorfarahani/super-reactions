@@ -119,18 +119,32 @@ class Settings_View {
 
 	private function render_setting_row( $post_type ) {
 		$reactions = srea_reactions();
-		$selected  = srea_get_active_template_slug( $post_type )
+		$selected  = srea_get_active_template_slug( $post_type );
 		?>
 			<div class="srea-template-selector">
 				<span class="srea-setting-label">
 					<?php echo ucfirst( $post_type ) . ':'; ?>
 				</span>
+				<div class="preview-wrapper">
+					<div class="srea-action-buttons">
+						<button class="srea-template-selector-btn" data-srea-option="<?php echo esc_attr( $post_type ); ?>">
+							<?php esc_html_e( 'Choose', 'super-reactions' ); ?>
+						</button>
+						<button class="srea-template-selector-btn srea-remover">
+							<?php esc_html_e( 'Remove', 'super-reactions' ); ?>
+						</button>
+					</div>
 
-				<button class="srea-template-selector-btn" data-srea-option="<?php echo esc_attr( $post_type ); ?>">
-					<?php esc_html_e( 'Select a template', 'super-reactions' ); ?>
-				</button>
-
-				<div class="srea-selected-template-preview"></div>
+					<div class="srea-selected-template-preview">
+						<?php
+						if ( $selected ) {
+							$this->generate_single_preview( $selected );
+						} else {
+							esc_html_e( 'Disabled', 'growmatik' );
+						}
+						?>
+					</div>
+				</div>
 			</div>
 		<?php
 	}

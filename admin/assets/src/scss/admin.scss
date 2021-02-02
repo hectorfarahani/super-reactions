@@ -57,8 +57,35 @@
 		.srea-template-selector {
 			display: flex;
 			align-items: center;
+			margin: 15px 0;
 			.srea-setting-label {
-				margin-right: 5px;
+				width: 30px;
+				margin-right: 25px;
+			}
+
+			.preview-wrapper {
+				display: flex;
+				flex-flow: column;
+				flex: 1 0 auto;
+				border: 1px solid #ccc;
+				min-height: 90px;
+				.srea-action-buttons {
+					display: flex;
+				}
+				.srea-template-selector-btn {
+					padding: 5px;
+					border: none;
+					flex-grow: 1;
+					&:enabled {
+						cursor: pointer;
+						&:hover {
+							background-color: rgba( 0, 0, 255, 0.3);
+						}
+					}
+					&.srea-remover:enabled:hover {
+						background-color: rgba( 255, 0, 0, 0.3);
+					}
+				}
 			}
 		}
 	}
@@ -111,7 +138,6 @@
 		display: block;
 	}
 
-
 	.srea-modal-inner {
 		display: flex;
 		flex-wrap: wrap;
@@ -129,7 +155,6 @@
 		&.selected {
 			background-color: #e5eeff;
 			border-color: blue;
-
 		}
 	}
 }
@@ -158,8 +183,6 @@
 .srea-selected-template-preview {
 	pointer-events: none;
 }
-
-
 
 @import "../../../../front/assets/src/scss/animations.scss";
 @import "../../../../front/assets/src/scss/common.scss";
