@@ -20,7 +20,7 @@
 	display: flex;
 	flex-basis: 50%;
 	background-color: #ffffff;
-	box-shadow: 1px 1px 5px 2px #cccccc;
+	border: 1px solid #cccccc;
 	padding: 10px;
 	align-items: center;
 
@@ -35,7 +35,8 @@
 	padding: 20px;
 	display: grid;
 	grid-template-columns: 200px auto;
-
+	border: 1px solid #cccccc;
+	border-top: none;
 	.srea-tabs {
 		border-top: 1px solid #ccc;
 		cursor: pointer;
@@ -62,30 +63,35 @@
 				width: 30px;
 				margin-right: 25px;
 			}
-
+			.srea-action-buttons {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				align-items: center;
+				height: 60px;
+				width: 100px;
+			}
+			.srea-template-selector-btn {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 60px;
+				height: 25px;
+				border: 1px solid #cccccc;
+				border-radius: 2px;
+				&:enabled {
+					cursor: pointer;
+				}
+				&.srea-remover:enabled {
+					color:rgb(226, 74, 74);
+				}
+			}
 			.preview-wrapper {
 				display: flex;
-				flex-flow: column;
-				flex: 1 0 auto;
-				border: 1px solid #ccc;
+				justify-content: center;
+				align-items: center;
+				width: 450px;
 				min-height: 90px;
-				.srea-action-buttons {
-					display: flex;
-				}
-				.srea-template-selector-btn {
-					padding: 5px;
-					border: none;
-					flex-grow: 1;
-					&:enabled {
-						cursor: pointer;
-						&:hover {
-							background-color: rgba( 0, 0, 255, 0.3);
-						}
-					}
-					&.srea-remover:enabled:hover {
-						background-color: rgba( 255, 0, 0, 0.3);
-					}
-				}
 			}
 		}
 	}
@@ -98,6 +104,14 @@
 		flex-wrap: wrap;
 		min-height: 130px;
 		height: 100%;
+		position: relative;
+
+		.srea-loader,
+		.srea-result-badge {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
 	}
 
 	.srea-view:not(.active) {
@@ -148,6 +162,7 @@
 
 	.srea-setting-preview {
 		cursor: pointer;
+		background-color: #f8f8f8;
 		&:hover {
 			border-color: blue;
 		}
@@ -163,8 +178,6 @@
 	display: flex;
 	flex-shrink: 0;
 	height: 40px;
-	background-color: #f8f8f8;
-	border: 1px solid #cccccc;
 	justify-content: center;
 	align-items: center;
 	margin: 10px;

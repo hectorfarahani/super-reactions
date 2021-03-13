@@ -8,14 +8,18 @@
 	animation: spin 1s linear infinite;
 }
 
-.srea-badge-success {
-	background-color: #3c932c;
+.srea-result-badge {
 	color: #ffffff;
 	padding: 6px;
 	text-align: center;
 	line-height: 10px;
 	font-size: 13px;
-	margin: 0 5px;
+	&.srea-badge-success {
+		background-color: #3c932c;
+	}
+	&.srea-badge-error {
+		background-color: #932c2c;
+	}
 }
 
 

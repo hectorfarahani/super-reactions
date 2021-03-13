@@ -125,16 +125,15 @@ class Settings_View {
 				<span class="srea-setting-label">
 					<?php echo ucfirst( $post_type ) . ':'; ?>
 				</span>
+				<div class="srea-action-buttons">
+					<button class="srea-template-selector-btn" data-srea-option="<?php echo esc_attr( $post_type ); ?>">
+						<?php esc_html_e( 'Choose', 'super-reactions' ); ?>
+					</button>
+					<button class="srea-template-selector-btn srea-remover">
+						<?php esc_html_e( 'Remove', 'super-reactions' ); ?>
+					</button>
+				</div>
 				<div class="preview-wrapper">
-					<div class="srea-action-buttons">
-						<button class="srea-template-selector-btn" data-srea-option="<?php echo esc_attr( $post_type ); ?>">
-							<?php esc_html_e( 'Choose', 'super-reactions' ); ?>
-						</button>
-						<button class="srea-template-selector-btn srea-remover">
-							<?php esc_html_e( 'Remove', 'super-reactions' ); ?>
-						</button>
-					</div>
-
 					<div class="srea-selected-template-preview">
 						<?php
 						if ( $selected ) {
