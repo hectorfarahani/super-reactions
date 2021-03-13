@@ -193,7 +193,6 @@ class Settings_View {
 		$reactions = ( new SREA_Reactions() )->get_all();
 		foreach ( $reactions as $slug => $config ) {
 			$this->generate_single_preview( $slug );
-			$this->generate_single_preview( $slug );
 		}
 	}
 
