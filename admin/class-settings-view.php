@@ -118,8 +118,7 @@ class Settings_View {
 	}
 
 	private function render_setting_row( $post_type ) {
-		$reactions = srea_reactions();
-		$selected  = srea_get_active_template_slug( $post_type );
+		$selected = srea_get_active_template_slug( $post_type );
 		?>
 			<div class="srea-template-selector">
 				<span class="srea-setting-label">
@@ -127,9 +126,12 @@ class Settings_View {
 				</span>
 				<div class="srea-action-buttons">
 					<button class="srea-template-selector-btn" data-srea-option="<?php echo esc_attr( $post_type ); ?>">
-						<?php esc_html_e( 'Choose', 'super-reactions' ); ?>
+						<?php $selected ? esc_html_e( 'Change', 'super-reactions' ) : esc_html_e( 'Select', 'super-reactions' ); ?>
 					</button>
-					<button class="srea-template-selector-btn srea-remover">
+					<button
+					class="srea-template-selector-btn srea-remover"
+					data-srea-option="<?php echo esc_attr( $post_type ); ?>"
+					<?php echo ! $selected ? esc_attr( 'disabled', 'super-reactions' ) : '';  ?>>
 						<?php esc_html_e( 'Remove', 'super-reactions' ); ?>
 					</button>
 				</div>

@@ -109,6 +109,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
       this.modalFor.innerText = 'Change';
       this.enableBtn(this.modalFor.parentNode.querySelector('.srea-remover'));
 
+      this.saveSettings(event);
+    }
+
+    saveSettings(event) {
       const spinner = showLoader();
       const view = document.querySelector('.srea-view.active');
       view.insertAdjacentElement('afterBegin', spinner);
@@ -118,10 +122,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
       formData.append('action', 'srea_save_settings');
       formData.append('nonce', nonce.value);
       formData.append('option', this.selectingOption);
-
-      console.log(event.currentTarget)
       formData.append('value', event.currentTarget.dataset.slug);
+
       this.close();
+
       fetch(ajaxurl, {
         method: 'POST',
         body: formData,
@@ -132,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
           const badge = showResults(res.success, res.data.results);
           view.insertAdjacentElement('afterBegin', badge);
           setTimeout(function () {
-            // view.removeChild(badge);
+            view.removeChild(badge);
           }, 500);
         });
     }
@@ -144,6 +148,32 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
       this.empty($previewWrapper);
       this.disableBtn(event.currentTarget);
+      const spinner = showLoader();
+      const view = document.querySelector('.srea-view.active');
+      view.insertAdjacentElement('afterBegin', spinner);
+
+      const formData = new FormData();
+
+      formData.append('action', 'srea_save_settings');
+      formData.append('nonce', nonce.value);
+      formData.append('option', event.currentTarget.dataset.sreaOption);
+      formData.append('value', '');
+
+      this.close();
+
+      fetch(ajaxurl, {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          view.removeChild(spinner);
+          const badge = showResults(res.success, res.data.results);
+          view.insertAdjacentElement('afterBegin', badge);
+          setTimeout(function () {
+            view.removeChild(badge);
+          }, 500);
+        });
     }
 
     disableBtn(btn) {

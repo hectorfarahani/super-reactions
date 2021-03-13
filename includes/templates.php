@@ -1,7 +1,7 @@
 <?php
 
 function srea_get_template( string $reaction_slug ) {
-	if ( ! $reaction_slug ) {
+	if ( ! $reaction_slug || 'disabled' === $reaction_slug ) {
 		return false;
 	}
 
